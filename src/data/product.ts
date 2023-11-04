@@ -1,4 +1,4 @@
-interface IProductList {
+export interface IProductList {
   id: number
   title: string
   price: number
@@ -8,32 +8,50 @@ interface IProductList {
 const productList: IProductList[] = [
   {
     id: 1,
-    title: 'product 1',
-    price: 10000,
+    title: 'آیفون',
+    price: 899,
     image: '/img/no-image.png'
   },
   {
     id: 2,
-    title: 'product 2',
-    price: 10000,
+    title: 'مک بوک',
+    price: 1999,
     image: '/img/no-image.png'
   },
   {
     id: 3,
-    title: 'product 3',
-    price: 10000,
+    title: 'آیپد',
+    price: 499,
     image: '/img/no-image.png'
   },
   {
     id: 4,
-    title: 'product 4',
-    price: 10000,
+    title: 'ایربادز',
+    price: 199,
     image: '/img/no-image.png'
   },
   {
     id: 5,
-    title: 'product 5',
-    price: 10000,
+    title: 'میکروفون',
+    price: 699,
+    image: '/img/no-image.png'
+  },
+  {
+    id: 6,
+    title: 'اپل واچ',
+    price: 499,
+    image: '/img/no-image.png'
+  },
+  {
+    id: 7,
+    title: 'ماوس',
+    price: 299,
+    image: '/img/no-image.png'
+  },
+  {
+    id: 8,
+    title: 'هدفون',
+    price: 599,
     image: '/img/no-image.png'
   }
 ]
