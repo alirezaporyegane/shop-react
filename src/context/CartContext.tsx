@@ -1,7 +1,7 @@
-import {createContext, useState} from 'react'
+import {ReactNode, createContext, useEffect, useState} from 'react'
 import {getProductById} from '../data/product'
 
-interface ICartItems {
+export interface ICartItems {
   id: number
   quantity: number
 }
@@ -12,7 +12,11 @@ interface ICartContext {
   addItemToCart: (id: number) => void
   removeItemFromCart: (id: number) => void
   deleteFromCart: (id: number) => void
-  getTotalAmount: () => void
+  getTotalAmount: () => number
+}
+
+interface ICartProvider {
+  children: ReactNode
 }
 
 export const CartContext = createContext({
@@ -21,12 +25,28 @@ export const CartContext = createContext({
   addItemToCart: () => {},
   removeItemFromCart: () => {},
   deleteFromCart: () => {},
-  getTotalAmount: () => {}
+  getTotalAmount: () => 0
 } as ICartContext)
 
 // eslint-disable-next-line react-refresh/only-export-components
-export function CartProvider({children}) {
+export function CartProvider({children}: ICartProvider) {
   const [cartProducts, setCartProducts] = useState<ICartItems[]>([])
+
+  const setLocaleStorage = (key: string, value: ICartItems[]) => {
+    localStorage.setItem(key, JSON.stringify(value))
+  }
+
+  const getLocaleStorage = (key: string): ICartItems[] => {
+    return JSON.parse(localStorage.getItem(key) || '')
+  }
+
+  useEffect(() => {
+    const cartItem = getLocaleStorage('cart')
+
+    if (cartItem?.length) setCartProducts(cartItem)
+  }, [])
+
+  useEffect(() => setLocaleStorage('cart', cartProducts), [cartProducts])
 
   function getProductQuantity(id: number): number {
     const quantity = cartProducts.find((item) => item.id === id)?.quantity
@@ -58,7 +78,6 @@ export function CartProvider({children}) {
 
     cartProducts.map((item) => {
       const productData = getProductById(item.id)
-
       totalAmount += (productData?.price || 0) * item.quantity
     })
 

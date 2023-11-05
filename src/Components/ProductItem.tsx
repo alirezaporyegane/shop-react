@@ -50,7 +50,7 @@ export default function ProductItem(props: IProps) {
 
                 <Button
                   className="mx-2 text-white"
-                  variant="outline-secondary"
+                  variant="outline-danger"
                   onClick={() => cart.deleteFromCart(props.id)}
                 >
                   <BsTrash />
